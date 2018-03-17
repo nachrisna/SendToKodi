@@ -4,7 +4,7 @@
 //
 //  Created by Tobias Tangemann on 15.01.16.
 //  Copyright © 2016 Tobias Tangemann. All rights reserved.
-//
+//  Updated by Max Grass to support SendToKodi of firsttris on 17.03.18.
 
 import Cocoa
 
@@ -36,27 +36,9 @@ class ShareViewController: NSViewController {
     }
     
     func generateRequestDataFromUrl(_ url: URL) -> Data! {
-        var vid : String?
-        
-        // If url is link to youtube video, extract video-id
-        if url.description.contains("youtube.com/watch") {
-            let queryItems = URLComponents(string: url.description)?.queryItems
-            vid = queryItems?.filter({$0.name == "v"}).first?.value
-        }
-        else if url.description.contains("youtu.be/") {
-            vid = String(url.path[url.path.index(url.path.startIndex, offsetBy: 1)...])
-        }
-        
-        if let vid = vid {
             return ("{\"jsonrpc\": \"2.0\", \"method\": \"Player.Open\", \"params\": " +
-                "{\"item\": {\"file\" : \"plugin://plugin.video.youtube/?action=play_video&videoid=\(vid)\" }}, \"id\" : \"1\"}")
+                "{\"item\": {\"file\" : \"plugin://plugin.video.sendtokodi/?\(url)\" }}, \"id\" : \"0\"}")
                 .data(using: String.Encoding.utf8)
-        }
-        else {
-            return ("{\"jsonrpc\": \"2.0\", \"method\": \"Player.open\", \"params\": " +
-                "{\"item\": {\"file\": \"\(url.description)\"}}, \"id\": 1}")
-                .data(using: String.Encoding.utf8)
-        }
     }
     
     func sendRequestToKodi(_ url: URL) {
@@ -65,7 +47,7 @@ class ShareViewController: NSViewController {
         
         let requestData = self.generateRequestDataFromUrl(url)
         
-        let request = NSMutableURLRequest(url: URL(string: "http://\(hostname):80/jsonrpc")!)
+        let request = NSMutableURLRequest(url: URL(string: "http://\(hostname):8080/jsonrpc")!)
         request.httpMethod = "POST"
         request.setValue("application/json",         forHTTPHeaderField: "Accept")
         request.setValue("application/json",         forHTTPHeaderField: "Content-Type")
