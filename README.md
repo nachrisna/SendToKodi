@@ -1,13 +1,17 @@
 # SendToKodi
-Send urls to be played on kodi via the OSX sharing system
+Send URLs to be played on Kodi via the MacOS sharing system. Default port 8080 is used.
 
-### Supported sites
-* YouTube (if the YouTube plugin is installed in kodi)
-* direkt url to a media file
+## Requires this addon on the Kodi part:
+https://github.com/firsttris/plugin.video.sendtokodi
 
-Download [here](https://github.com/tripplet/SendToKodi/releases)
+## Supported sites
+https://rg3.github.io/youtube-dl/supportedsites.html
+
+## Download
+https://github.com/maxgrass/SendToKodi/releases
 
 ## Screenshots
 
 ![](doc/screenshot1.png?raw "Screenshot")
 ![](doc/screenshot2.png?raw "Screenshot")
+
