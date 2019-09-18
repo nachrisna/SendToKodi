@@ -1,3 +1,5 @@
+A fork of the macOS share extension maxgrass/SendToKodi where I've added minimal support for it to act as a macOS system service as well. 
+
 # SendToKodi
 Send URLs to be played on Kodi via the MacOS sharing system. Default port 8080 is used.
 
