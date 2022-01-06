@@ -20,7 +20,9 @@ class ShareViewController: NSViewController {
         
         if let attachments = item.attachments {
             (attachments.first as! NSItemProvider).loadItem(forTypeIdentifier: kUTTypeURL as String, options: nil, completionHandler: { (item, error) -> Void in
-                self.sendRequestToKodi(item as! URL)
+                if let data = item as? Data, let dataStr = String(data: data, encoding: .utf8) {
+                    self.sendRequestToKodi(URL(string: dataStr)!)
+                }
             })
         }
         else {
